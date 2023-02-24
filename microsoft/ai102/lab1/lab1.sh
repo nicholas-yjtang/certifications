@@ -11,9 +11,16 @@ if [ $(az group exists --name $resourceGroup) = false ]; then
 fi
 #if cognitive service does not exist, create it
 cognitiveServiceKind=TextAnalytics
-cognitiveServiceName=$(az cognitiveservices account list --resource-group $resourceGroup --query "[?contains(name,'ai102')].name" --output tsv)
-if [ $(az cognitiveservices account list --resource-group $resourceGroup | grep -c "ai102-cognitive") = 0 ]; then
-    cognitiveServiceName=ai102-$cognitiveServiceKind-$RANDOM
+cognitiveServiceName=$(az cognitiveservices account list --resource-group $resourceGroup --query "[?contains(name,'ai102-cs-$cognitiveServiceKind')].name" --output tsv)
+if [ -z $cognitiveServiceName ]; then
+    #only allowed 1 single free tier cognitive service
+    #deleting existing cognitive service
+    cognitiveServiceNamePrevious=$(az cognitiveservices account list --resource-group $resourceGroup --query "[?contains(name,'ai102')].name" --output tsv)
+    if [ ! -z $cognitiveServiceNamePrevious ]; then
+        echo deleting previous resource $cognitiveServiceNamePrevious
+        az cognitiveservices account delete --name $cognitiveServiceNamePrevious --resource-group $resourceGroup
+    fi
+    cognitiveServiceName=ai102-cs-$cognitiveServiceKind-$RANDOM    
     az cognitiveservices account create --name $cognitiveServiceName --kind $cognitiveServiceKind --sku F0 --resource-group $resourceGroup --location $myLocation --yes
 fi
 
