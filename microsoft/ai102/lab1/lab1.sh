@@ -2,6 +2,7 @@
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 pyenv activate ai-102
+pip install --upgrade pip
 pip install python-dotenv
 myLocation=southeastasia
 resourceGroup=ai102-cognitive-rg
