@@ -1,0 +1,21 @@
+[
+    {
+      "op": "add",
+      "value": {
+        "displayName": "Learn FAQ Page",
+        "sourceUri": "https://docs.microsoft.com/en-us/learn/support/faq",
+        "sourceKind": "url",
+        "source": "https://docs.microsoft.com/en-us/learn/support/faq"
+      }
+    },
+    {
+        "op": "add",
+        "value": {
+          "displayName": "Friendly chit-chat",
+          "sourceKind": "file",
+          "source": "qna_chitchat_friendly.tsv",
+          "sourceUri": "https://qnamakerstore.blob.core.windows.net/qnamakerdata/editorial/english/qna_chitchat_friendly.tsv"
+        }
+    }
+]
+  

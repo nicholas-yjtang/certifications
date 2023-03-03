@@ -1,0 +1,9 @@
+{
+    "description": "FAQ for Microsoft Learn",
+    "language": "en",
+    "settings": {
+      "defaultAnswer": "Sorry, I don't understand the question"
+    },
+    "multilingualResource": false
+  }
+  

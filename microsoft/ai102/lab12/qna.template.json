@@ -1,0 +1,44 @@
+[
+    {
+        "op": "add",
+        "value" : 
+            {
+                "id" : "{ID1}",
+                "source" : "Editorial",
+                "questions" : [
+                    "What is Microsoft certification?",
+                    "How can I demostate my Microsoft technology skills?"
+                ],
+                "answer": "The Microsoft Certified Professional program enables you to validate and prove your skills with Microsoft technologies.",
+                "dialog" : {
+                    "prompts" : [
+                        {
+                            "displayOrder": 0,
+                            "qnaId" : "{ID2}",
+                            "displayText" : "Learn more about certification."
+                        }
+                    ],
+                    "iscontextOnly": false
+                }                   
+            }
+        
+
+    },
+    {
+
+        "op": "add",
+        "value" : 
+        {
+            "id" : "{ID2}",
+            "source" : "Editorial",
+            "questions" : [
+                "Learn more about certification."
+            ],
+            "answer": "You can learn more about certification on the [Microsoft Certification website](https://docs.microsoft.com/learn/certifications/).",
+            "dialog": {
+                "iscontextOnly": true
+            }   
+        }        
+    }
+
+]
