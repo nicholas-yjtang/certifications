@@ -1,13 +1,4 @@
 #!/bin/bash
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-pyenv activate ai-102
-pip install --upgrade pip
-pip install python-dotenv
-pip install azure-ai-textanalytics
-pip install azure-core
-pip install azure-keyvault-secrets
-pip install azure-identity 
 myLocation=southeastasia
 resourceGroup=ai102-cognitive-rg
 #create resource group if it does not exist
@@ -86,5 +77,11 @@ echo COG_SERVICE_ENDPOINT=$COG_SERVICE_ENDPOINT, KEY_VAULT=$KEY_VAULT, TENANT_ID
 
 scriptPath=$(dirname $(readlink -f $0))
 pushd $scriptPath
+pip install --upgrade pip
+pip install python-dotenv
+pip install azure-ai-textanalytics
+pip install azure-core
+pip install azure-keyvault-secrets
+pip install azure-identity
 python keyvault-client.py
 popd

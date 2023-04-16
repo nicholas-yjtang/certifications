@@ -1,8 +1,4 @@
 #!/bin/bash
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-pyenv activate ai-102
-pip install azure-ai-textanalytics==5.1.0
 myLocation=southeastasia
 resourceGroup=ai102-cognitive-rg
 serviceType=TextAnalytics
@@ -17,10 +13,17 @@ cognitiveServiceName=$(az cognitiveservices account list --resource-group ai102-
 #if service name exists, keep it
 if [ -z "$cognitiveServiceName" ]
 then
+    #delete the previous cognitive service
+    cognitiveServiceNamePrevious=$(az cognitiveservices account list --resource-group ai102-cognitive-rg --query "[?contains(name,'ai102-cs')].name" --output tsv)
+    if [ ! -z "$cognitiveServiceNamePrevious" ]
+    then
+        #delete the current cognitive service
+        az cognitiveservices account delete --name $cognitiveServiceNamePrevious --resource-group $resourceGroup
+    fi
     #create variable random name for cognitive service
-    congitiveServiceName=ai102-cognitive-$RANDOM
+    cognitiveServiceName=ai102-cs-$RANDOM
     #create cognitive service for text analytics
-    az cognitiveservices account create --name $cognitiveServiceName --kind TextAnalytics --sku F0 --resource-group $resourceGroup --location $myLocation --yes    
+    az cognitiveservices account create --name $cognitiveServiceName --kind $serviceType --sku F0 --resource-group $resourceGroup --location $myLocation --yes    
 else
     echo "cognitive service name exists"
 fi
@@ -33,5 +36,6 @@ export COG_SERVICE_KEY=$key
 #current script path
 SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 pushd $SCRIPTPATH
+pip install azure-ai-textanalytics==5.1.0
 python text-analysis.py
 popd

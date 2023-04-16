@@ -31,5 +31,7 @@ echo COG_SERVICE_ENDPOINT=$endpoint and COG_SERVICE_KEY=$key
 #get the current location of the bash script
 scriptPath=$(dirname $(readlink -f $0))
 pushd $scriptPath
+pip install --upgrade pip
+pip install python-dotenv
 python rest-client.py
 popd
