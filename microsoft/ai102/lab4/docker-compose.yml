@@ -1,0 +1,19 @@
+version: "3.0"
+services:
+  ai102:
+    image: mcr.microsoft.com/azure-cognitive-services/textanalytics/sentiment:3.0-en #mcr.microsoft.com/azure-cognitive-services/textanalytics/language:latest
+    environment:
+      - Eula=accept
+      - Billing=${endpoint}
+      - ApiKey=${key}
+      - Logging:Console:LogLevel:Default=Trace
+      - Mounts:Output=/output
+    volumes:
+      - ${output}:/output
+    restart: always
+    ports:
+      - "5000:5000"
+    mem_limit: 4g
+    cpus: 1
+volumes:
+  output:
