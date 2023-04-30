@@ -6,10 +6,7 @@ services:
       - Eula=accept
       - Billing=${endpoint}
       - ApiKey=${key}
-      - Logging:Console:LogLevel:Default=Trace
-      - Mounts:Output=/output
-    volumes:
-      - ${output}:/output
+      - Logging:Console:LogLevel:Default=Debug
     restart: always
     ports:
       - "5000:5000"
