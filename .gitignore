@@ -2,4 +2,6 @@
 **/bin
 **/Debug
 **/Release
-.python-version
+**/.python-version
+**/.vscode/**
+**/.gitignore
