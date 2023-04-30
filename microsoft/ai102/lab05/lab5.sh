@@ -4,17 +4,16 @@ resourceGroup=ai102-cognitive-rg
 serviceType=TextAnalytics
 #create resource group
 #if group does not exist, create it
-if [ -z "$(az group list --query "[?contains(name,'ai102-cognitive-rg')].name" --output tsv)" ]
-then
+if [ $(az group exists --name $resourceGroup) = false ]; then
     az group create --name $resourceGroup --location $myLocation
 fi
 #check if cognitive service exists
-cognitiveServiceName=$(az cognitiveservices account list --resource-group ai102-cognitive-rg --query "[?contains(name,'ai102-cs-$serviceType')].name" --output tsv)
+cognitiveServiceName=$(az cognitiveservices account list --resource-group $resourceGroup --query "[?contains(name,'ai102-cs-$serviceType')].name" --output tsv)
 #if service name exists, keep it
 if [ -z "$cognitiveServiceName" ]
 then
     #delete the previous cognitive service
-    cognitiveServiceNamePrevious=$(az cognitiveservices account list --resource-group ai102-cognitive-rg --query "[?contains(name,'ai102-cs')].name" --output tsv)
+    cognitiveServiceNamePrevious=$(az cognitiveservices account list --resource-group $resourceGroup --query "[?contains(name,'ai102-cs')].name" --output tsv)
     if [ ! -z "$cognitiveServiceNamePrevious" ]
     then
         #delete the current cognitive service

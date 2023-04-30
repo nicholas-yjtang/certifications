@@ -7,7 +7,7 @@ if [ $(az group exists --name $resourceGroup) = false ]; then
 fi
 #check if cognitive service exists
 cognitiveServiceKind=TextAnalytics
-cognitiveServiceName=$(az cognitiveservices account list --resource-group ai102-cognitive-rg --query "[?contains(name,'ai102-cs-$cognitiveServiceKind')].name" --output tsv)
+cognitiveServiceName=$(az cognitiveservices account list --resource-group $resourceGroup --query "[?contains(name,'ai102-cs-$cognitiveServiceKind')].name" --output tsv)
 #if service name exists, keep it
 if [ -z "$cognitiveServiceName" ]
 then
