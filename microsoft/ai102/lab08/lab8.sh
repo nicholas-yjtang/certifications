@@ -31,7 +31,15 @@ echo cognitiveServiceNameCurrent=$cognitiveServiceNameCurrent
 key=$(az cognitiveservices account keys list --name $cognitiveServiceNameCurrent --resource-group $resourceGroup --query "key1" --output tsv)
 export COG_SERVICE_REGION=$myLocation
 export COG_SERVICE_KEY=$key
-#export USE_MICROPHONE=True
+#get user input to use microphone
+echo "Do you want to use microphone? (y/n)"
+read useMicrophone
+if [ "$useMicrophone" == "y" ]
+then
+    export USE_MICROPHONE=True
+else
+    export USE_MICROPHONE=False
+fi
 echo COG_SERVICE_REGION=$COG_SERVICE_REGION, COG_SERVICE_KEY=$COG_SERVICE_KEY, USE_MICROPHONE=$USE_MICROPHONE, USE_VOICE=$USE_VOICE, USE_SSML=$USE_SSML
 SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 pushd $SCRIPTPATH
