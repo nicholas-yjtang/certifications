@@ -185,7 +185,7 @@ try:
                         accordian_header_text = f"{previous_learning_outcome_reference}.{previous_learning_outcome_number} {previous_learning_outcome_title} {df.at[row, 'Learning Outcome Reference Title']}"
                         previous_learning_outcome_number += 1                                        
                 if is_valid_klp(df, row):
-                    bloom = df.at[row, 'Bloom’s Taxonomy']
+                    bloom = df.at[row, "Bloom's Taxonomy"]
                     if pd.isna(bloom):
                         bloom = ''                  
                     bloom_color = get_bloom_color(bloom)
